@@ -4,5 +4,5 @@ import pygame
 class View(pygame.Surface):
     pass
 
-    def render(self):
+    def run(self, surface):
         pass

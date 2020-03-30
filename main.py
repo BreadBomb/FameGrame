@@ -1,34 +1,27 @@
-import time
+import os
+import subprocess
 
-import pygame
-import pygame.freetype
-
+from programs.setup import Setup
 from renderer import Renderer
-from views.view import View
+from views.AnimationView import AnimationView
+from views.CenteredText import CenteredText
+from views.ScrollingText import ScrollingText
 
 
 def main():
     renderer = Renderer()
 
-    pygame.freetype.init()
+    # out = subprocess.run(['/usr/bin/create_ap', '-n', '--daemon', 'wlan0', 'FameGrame', 'fgwifilol'])
 
-    font = pygame.freetype.Font("./fonts/7x14B.bdf")
+    # print(out.stdout)
 
-    test = pygame.Surface((32, 32))
-
-    renderer.Content = test
-
-    cube = pygame.Surface((2, 2))
-    cubeRect = cube.get_rect()
+    setup = Setup(renderer.Content.get_rect().width)
 
     while 1:
-        cubeRect = cubeRect.move([1, 1])
-        test.fill((255, 0, 0, 0))
-        cube.fill((0, 255, 0, 0))
-        test.blit(cube, cubeRect)
-        font.render_to(test, (3, 0), "DAMN")
-
-        time.sleep(.2)
+        # animation.run(renderer.Content)
+        # connect.run(renderer.Content)
+        # scrollingText.run(renderer.Content)
+        setup.run(renderer.Content)
 
         renderer.run()
 

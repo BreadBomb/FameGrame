@@ -4,8 +4,10 @@ import sys
 import time
 
 import pygame
+from setuptools.command.setopt import option_base
 
-from views.view import View
+from views.View import View
+
 
 def goodbye():
     print("goodbye")
@@ -31,6 +33,7 @@ class Renderer:
             from rgbmatrix import RGBMatrix
             self.matrix = RGBMatrix(options=self.__generateMatrixOptions())
 
+
     def __initialize(self):
         if not self.useEmulator:
             os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -46,17 +49,18 @@ class Renderer:
         options.chain_length = 1
         options.parallel = 1
         options.hardware_mapping = 'regular'
+        options.brightness = 100
+        options.drop_privileges = False
 
         return options
 
     def run(self):
-            if not self.useEmulator:
-                for x in range(32):
-                    for y in range(32):
-                        color = self.Content.get_at((x, y))
-                        self.matrix.SetPixel(x, y, color.r, color.g, color.b)
-            else:
-                pygame.transform.scale(self.Content, (512, 512), self.screen)
-
+        if not self.useEmulator:
             pygame.display.flip()
-
+            for x in range(32):
+                for y in range(32):
+                    color = self.Content.get_at((x, y))
+                    self.matrix.SetPixel(x, y, color.r, color.g, color.b)
+        else:
+            pygame.transform.scale(self.Content, (512, 512), self.screen)
+            pygame.display.flip()
