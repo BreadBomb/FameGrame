@@ -39,7 +39,7 @@ class Renderer:
         options.parallel = 1
         options.hardware_mapping = 'regular'
         options.pwm_lsb_nanoseconds = 160
-        options.brightness = 100
+        options.brightness = 80
         options.drop_privileges = False
 
         return options

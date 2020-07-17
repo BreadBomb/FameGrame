@@ -1,6 +1,9 @@
 import pygame
 from pygame import draw, rect
 
+from views import View
+
+
 class TetrominoPosition():
     def __init__(self, x, y):
         self.x = x
@@ -14,10 +17,13 @@ class Tetromino():
         self.block = block
 
 
-class Tetris():
-    def __init__(self):
+class Tetris(View):
+    def __init__(self, periphery, program_manager):
         self.gamefield_x = 10
         self.gamefield_y = 6
+
+        self.periphery = periphery
+        self.program_manager = program_manager
 
         self.gamefield = []
 
@@ -90,6 +96,17 @@ class Tetris():
         self.add_tetromino_on_gamefield(tetromino)
 
         pass
+
+        self.register_events()
+
+    def register_events(self):
+        self.periphery.periphery_events.button3_released += self.back
+
+    def unregister_events(self):
+        self.periphery.periphery_events.button3_released -= self.back
+
+    def back(self):
+        self.program_manager.back()
 
     def init_gamefield(self):
         self.gamefield = [

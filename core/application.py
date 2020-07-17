@@ -12,8 +12,6 @@ class Application:
 
         self.Content: View = None
 
-        self.periphery.set_led_animation({"r": [0, 255, 0], "g": [0, 255, 0]}, duration=2000)
-
         self.__running = False
 
     def start(self):

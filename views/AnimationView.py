@@ -1,5 +1,4 @@
 import os
-import time
 from datetime import datetime
 
 import pygame
@@ -9,6 +8,8 @@ from views.view import View
 
 class AnimationView(View):
     def __init__(self, folder):
+        super().__init__()
+
         print("init AnimationView")
 
         self.images = []

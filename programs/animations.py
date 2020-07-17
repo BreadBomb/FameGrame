@@ -14,8 +14,9 @@ class Animation:
 
 
 class Animations:
-    def __init__(self, periphery):
+    def __init__(self, periphery, program_manager):
         self.periphery = periphery
+        self.program_manager = program_manager
 
         self.path = "assets/animations/animations"
 
@@ -30,8 +31,22 @@ class Animations:
 
         self.image_seconds = 30
 
+        self.register_events()
+
+    def register_events(self):
         self.periphery.periphery_events.rotary_big_cw += self.next_animation
         self.periphery.periphery_events.rotary_big_ccw += self.previous_animation
+
+        self.periphery.periphery_events.button3_released += self.back
+
+    def unregister_events(self):
+        self.periphery.periphery_events.rotary_big_cw -= self.next_animation
+        self.periphery.periphery_events.rotary_big_ccw -= self.previous_animation
+
+        self.periphery.periphery_events.button3_released -= self.back
+
+    def back(self):
+        self.program_manager.back()
 
     def next_animation(self):
         self.image_time = datetime.now()
@@ -50,16 +65,16 @@ class Animations:
     def read_animations(self):
         animations = []
         for animation in os.listdir(self.path):
-            folderPath = os.path.join(self.path, animation)
-            configPath = os.path.join(folderPath, "config.ini")
+            folder_path = os.path.join(self.path, animation)
+            config_path = os.path.join(folder_path, "config.ini")
             config = configparser.ConfigParser()
-            config.read(configPath)
+            config.read(config_path)
 
             print(animation)
 
-            frame_count = len([f for f in os.listdir(folderPath) if os.path.isfile(os.path.join(folderPath, f))]) - 1
+            frame_count = len([f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]) - 1
 
-            animation = Animation(folderPath, config["animation"]["hold"], config["animation"]["loop"], frame_count)
+            animation = Animation(folder_path, config["animation"]["hold"], config["animation"]["loop"], frame_count)
             animations.append(animation)
 
         return animations

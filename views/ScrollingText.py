@@ -42,7 +42,6 @@ class ScrollingText(View):
                 self.delay = True
                 self.direction = -1
 
-        #self.rendered_text.fill((0, 0, 0, 255))
-        #surface.blit(self.rendered_text, self.rendered_rect)
-        self.rendered_text, _ = self.font.render(self.text, self.fgcolor)
+            self.rendered_text, _ = self.font.render(self.text, self.fgcolor)
+
         surface.blit(self.rendered_text, self.rendered_rect)
