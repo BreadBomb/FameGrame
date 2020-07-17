@@ -1,30 +1,17 @@
-import os
-import subprocess
-
-from programs.setup import Setup
-from renderer import Renderer
-from views.AnimationView import AnimationView
-from views.CenteredText import CenteredText
-from views.ScrollingText import ScrollingText
+from core import bootstrap_application
+from core import Application
+from programs.animations import Animations
+from programs.menu import Menu
 
 
-def main():
-    renderer = Renderer()
+class Main(Application):
+    def __init__(self):
+        super().__init__()
 
-    # out = subprocess.run(['/usr/bin/create_ap', '-n', '--daemon', 'wlan0', 'FameGrame', 'fgwifilol'])
+        menu = Animations(self.periphery)
 
-    # print(out.stdout)
-
-    setup = Setup(renderer.Content.get_rect().width)
-
-    while 1:
-        # animation.run(renderer.Content)
-        # connect.run(renderer.Content)
-        # scrollingText.run(renderer.Content)
-        setup.run(renderer.Content)
-
-        renderer.run()
+        self.Content = menu
 
 
 if __name__ == "__main__":
-    main()
+    bootstrap_application(Main)

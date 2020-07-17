@@ -4,17 +4,16 @@ from datetime import datetime
 
 import pygame
 
-from views.View import View
+from views.view import View
 
 
 class AnimationView(View):
-    def __init__(self, folder, pos):
+    def __init__(self, folder):
         print("init AnimationView")
 
         self.images = []
         self.position = 1
         self.folder = folder
-        self.pos = pos
 
         for _ in os.listdir(self.folder):
             image_path = os.path.join(self.folder, "%d.bmp" % self.position)
@@ -33,4 +32,4 @@ class AnimationView(View):
                 self.position += 1
             self.timer = datetime.now()
 
-        surface.blit(self.images[self.position], self.pos)
+        surface.blit(self.images[self.position], (0, 0))

@@ -3,11 +3,11 @@ from datetime import datetime
 import pygame
 from pygame import freetype
 
-from views.View import View
+from views.view import View
 
 
 class CenteredText(View):
-    def __init__(self, text, font_path, y, surface_width, fgcolor):
+    def __init__(self, text, font_path, surface_width, fgcolor):
         self.text = text
 
         if not freetype.get_init():
@@ -17,7 +17,7 @@ class CenteredText(View):
 
         self.rendered_text, self.rendered_rect = self.font.render(self.text, fgcolor)
         self.fgcolor = fgcolor
-        self.rendered_rect.y = y
+        self.rendered_rect.y = 0
         self.rendered_rect.x = (surface_width - self.rendered_rect.width)/2
 
     def set_text(self, text):
